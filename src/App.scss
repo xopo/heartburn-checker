@@ -104,6 +104,23 @@
     }
 }
 
+.card-header ul {
+    display: flex;
+    width: 100%;
+    background: pink;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    li {
+      flex: 1 1 0px;
+      background-color: #eee;
+      height: 2px;
+      color: transparent;
+      &.history {
+        background-color: var(--theme-background);
+      }
+    }
+}
 
 @media screen and (max-width:700px) {
   .checker {
