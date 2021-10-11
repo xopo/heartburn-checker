@@ -1,0 +1,113 @@
+.checker {
+    width: 500px;
+    background-color: white;
+    height: 800px;
+    align-self: auto;
+    border-radius: 10px;
+    box-shadow: 0px 10px 20px #888;
+    font-size: 16px;
+    font-family: 'Montserrat';
+    font-weight: 700;
+    color: #555;
+    .card-header, .card-action {
+      height: 100px;
+    }
+    .card-content {
+      height: calc(100% - 200px);
+      flex-direction: column;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .question {
+        padding: 20px;
+        margin-bottom: 40px;
+        text-align: left;
+        width: 89%;
+        font-size: 22px;
+        font-weight: 900;
+        color: #555;
+      }
+      
+      .choice {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        button {
+          width: 40%;
+          height: 50px;
+          border-radius: 30px;
+          background-color: transparent;
+          border: 2px solid var(--answer-border);
+          color: var(--theme-background);
+
+          &.selected {
+            background-color: var(--theme-background);
+            border-color: var(--theme-background);
+            position: relative;
+            color: white;
+          }
+        }
+      }
+
+    }
+    .card-action {
+      display: flex;
+      padding: 5px;
+      button {
+        align-self: center;
+        width: 90%;
+        background: var(--theme-background);
+        border-radius: 7px;
+        min-height: 60px;
+        border: none;
+        margin: 0 auto;
+        position: relative;
+        color: white;
+        &:disabled {
+          background: var(--disabled-button);
+          color: var(--disabled-font-color);
+        }
+      }
+    }
+}
+
+.selected::after {
+    content: url('/ic-checkmark.svg');
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    border-radius: 50%;
+    top: 8px;
+    right: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checker .card-action button {
+    &::after {
+      content: url('./ic-arrow-right-white.svg');
+      width: 12px;
+      height: 18px;
+      position: absolute;
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 15px;
+      display: flex;
+      /* align-items: center; */
+      justify-content: center;
+    }
+    &:disabled::after {
+      content: url('./ic-arrow-right-gray.svg');
+    }
+}
+
+
+@media screen and (max-width:700px) {
+  .checker {
+    width: 90%;
+    height: 90%;
+  }
+}

@@ -5,9 +5,23 @@
   padding: 0;
 }
 
+:root {
+  --theme-background: #6accba;
+  --disabled-button: #eceff1;
+  --answer-border: #e4eaee;
+  --font-color: #7B99A;
+  --disabled-font-color: #858788;
+}
+
 body {
-  background-color: #6accba;
+  background-color: var(--theme-background);
   font-family: 'Montserrat', sans-serif;
+}
+
+button {
+  font-family: 'Montserat', sans-serif;
+  font-size: 17px;
+  font-weight: bold;
 }
 
 #root {
