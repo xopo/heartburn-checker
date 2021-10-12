@@ -1,4 +1,4 @@
-export default {
+const apiResult = {
 	"questions": [
 		{	
 			"id": "is_heartburn_known",
@@ -132,3 +132,6 @@ export default {
 		}
 	]
 }
+
+
+export default apiResult;

@@ -1,5 +1,5 @@
 .checker {
-    width: 500px;
+    width: 450px;
     background-color: white;
     height: 800px;
     align-self: auto;
@@ -8,7 +8,7 @@
     font-size: 16px;
     font-family: 'Montserrat';
     font-weight: 700;
-    color: #555;
+    color: #3f6072;
     .card-header, .card-action {
       height: 100px;
     }
@@ -48,7 +48,19 @@
           }
         }
       }
-
+      .outcome {
+        margin: 0 30px;
+        font-weight: 400;
+        button {
+          background-color: var(--theme-background);
+          color: white;
+          width: 100%;
+          border-radius: 8px;
+          border: none;
+          margin-top: 1em;
+          position: relative;
+        }
+      }
     }
     .card-action {
       display: flex;
@@ -58,7 +70,7 @@
         width: 90%;
         background: var(--theme-background);
         border-radius: 7px;
-        min-height: 60px;
+        min-height: 50px;
         border: none;
         margin: 0 auto;
         position: relative;
@@ -67,8 +79,50 @@
           background: var(--disabled-button);
           color: var(--disabled-font-color);
         }
+        &.restart {
+          background: transparent;
+          color: var(--theme-background);
+          font-weight: 200;
+          text-decoration: underline;
+          &::after {
+            content: none;
+          }
+        }
       }
     }
+}
+
+.row {
+  position: relative;
+  .header-action {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    bottom: 0;
+    &:before {
+      content: url('./ic-arrow-left-green.svg');
+      width: 41px;
+      height: 32px;
+      position: absolute;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateY(-13px);
+      font-size: 38px;
+    }
+  }
+
+  .header-title {
+    width: 100%;
+    text-align: center;
+    height: 50px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 10px;
+    font-size: 1em;
+  }
 }
 
 .selected::after {
@@ -85,7 +139,7 @@
     justify-content: center;
 }
 
-.checker .card-action button {
+.checker .card-action button, .book-meeting {
     &::after {
       content: url('./ic-arrow-right-white.svg');
       width: 12px;

@@ -1,11 +1,12 @@
 import { TrackerEntry } from "../App";
 
 type HeaderProps = {
-    title: string,
-    tracker: Array<TrackerEntry>
+    title: string;
+    tracker: Array<TrackerEntry>;
+    handleBack: () => void;
 }
 
-export default function CardHeader({title, tracker}:HeaderProps) {
+export default function CardHeader({title, tracker, handleBack}:HeaderProps) {
     return(
         <div 
             className="card-header"
@@ -15,6 +16,7 @@ export default function CardHeader({title, tracker}:HeaderProps) {
                 <div 
                     className='header-action'
                     data-testid='cch-action'
+                    onClick={handleBack}
                 >.</div>
                 <div 
                     className='header-title'
@@ -22,7 +24,7 @@ export default function CardHeader({title, tracker}:HeaderProps) {
                 >{title}</div>
             </div>
             <ul>
-                {tracker.map(({id, cls}) => <li key={id} className={cls || ''}  />)}
+                {tracker.map(({id, cls}) => <li key={id} className={cls}  />)}
             </ul>
         </div>
     );

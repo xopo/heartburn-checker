@@ -1,9 +1,15 @@
 import {Matcher, MatcherOptions, render} from '@testing-library/react';
+import { TrackerEntry } from '../App';
 
 import CardHeader from "../components/CardHeader";
 
 const testProps = {
     title: 'Test App',
+    tracker: [
+        {id: 'test1', cls: 'history'},
+        {id: '0 - future', cls: 'future'},
+    ] as Array<TrackerEntry>,
+    handleBack: jest.fn()
 }
 
 describe('<CardHeader />', () => {
