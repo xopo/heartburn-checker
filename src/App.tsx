@@ -49,29 +49,40 @@ export type Outcome = {
 }
 
 function App() {
-  const initialQuestion = getInitialEntry(mock.questions as Array<Question>);//'heartburn_blood_stool';//'is_heartburn_known'
-    
+  const initialQuestion = getInitialEntry(mock.questions as Array<Question>);
   const [questions, setQuestions] = useState([] as Array<Question>);
   const [actualContent, setActualContent] = useState({} as Question | Outcome);
   const [initialQuestionId, setInitialQuestionId] = useState('');
   const [actualContentId, setActualContentId] = useState('');
+  const [questionChoice, setquestionChoice] = useState({} as HistoryEntry);
   const [qHistory, setQHistory] = useState([] as Array<HistoryEntry>);
   const [tracker, setTracker] = useState([] as Array<TrackerEntry>);
 
   function getTrackerId(id:number): string {
     return `${id} - future`;
   }
+  const memoisedCreateTracker = useCallback(() => {
+    function createTracker(historyList: Array<HistoryEntry>): Array<TrackerEntry> {
+      const trackerList = [{id: 'initial', cls: 'history'}] as Array<TrackerEntry>;
+      for (let i = 0; i <= mock.questions.length - 1; i ++ ) {
+        if (historyList[i]) {
+          trackerList.push({id: historyList[i].id, cls: 'history'});
+        } else {
+          trackerList.push({id: getTrackerId(i), cls: 'future'});
+        }
+      }
+      return trackerList;
+    }
+    return createTracker(qHistory);
+  }, [qHistory]);
+
+  
 
   const initialSetup = useCallback(() => {
     setQHistory([]);
     setInitialQuestionId(initialQuestion);
     setActualContentId(initialQuestion);
-    const trackerList = [];
-    trackerList[0] = {id: initialQuestion, cls: 'history'};
-    for (let i = 0; i <= mock.questions.length - 2; i ++ ) {
-      trackerList.push({id: getTrackerId(i), cls: 'future'});
-    }
-    setTracker(trackerList as Array<TrackerEntry>);
+    setTracker(memoisedCreateTracker());
   }, []);
 
   useEffect(() => {
@@ -80,15 +91,17 @@ function App() {
   }, [initialSetup]);
 
   useEffect(() => {
-    console.log({actualContentId, initialQuestionId})
     const questionId = actualContentId || initialQuestionId;
     const questionSet = questions.find(question => question.id === questionId);
     questionSet && setActualContent(questionSet);
   }, [actualContentId, initialQuestionId, questions]);
 
+  useEffect(() => {
+    setTracker(memoisedCreateTracker());
+  }, [qHistory, memoisedCreateTracker]);
 
-  function handleAddToHIstory(newEntry: HistoryEntry) {
-    setQHistory(prev => [...prev, newEntry]);
+  function handleRecordChice(newEntry: HistoryEntry) {
+    setquestionChoice(newEntry);
   }
 
   function handleContentAction() {
@@ -96,40 +109,42 @@ function App() {
       initialSetup();
       return;
     }
-    const lastAnswer = qHistory[qHistory.length - 1];
+    const lastAnswer = questionChoice;
     const nextDirection = actualContent.next.length === 1 ? actualContent.next[0] : actualContent.next.find(n => 'answered' in n && n.answered === lastAnswer.answer);
     if (nextDirection && 'next_question' in nextDirection) {
       setActualContentId(nextDirection.next_question);
-      const firstEmptyId = tracker.findIndex(entry => entry.cls === 'future'); 
-      const newTracker = tracker.map((entry, id) => {
-        if (entry.id === getTrackerId(firstEmptyId - 1) && entry.cls !== 'history') {
-          return {id: nextDirection.next_question, cls: 'history'}
-        }
-        return entry;
-      })
-      setTracker(newTracker as Array<TrackerEntry>);
-    } else {
+      setQHistory(prev => [...prev, lastAnswer]);
+    } else { 
+      // outcome screen
       const score = qHistory.reduce((acc, q) => acc + q.score, 0);
       let outcomeEntry = getOutcome(score, actualContent, mock.outcomes);
       
       if (outcomeEntry) {
         setActualContent(outcomeEntry);
+        setTracker(tracker.map(entry => {
+          if (entry.cls === 'future') {
+            return {...entry, cls: 'history'};
+          } 
+          return entry;
+        }));
       }
     }
   }
 
-  const nextQuestionIsAvailable = qHistory.some(entry => entry.id === actualContent.id);
+  const nextQuestionIsAvailable = questionChoice.id === actualContent.id;
   
   function handleBack() {
     if (qHistory.length < 1) {
       return false; // startpoint
     }
-    const previousQuestion = qHistory[qHistory.length - 1];
-    const newHistory = qHistory.filter(q => q.id !== previousQuestion.id)
+    const lastQuestion = qHistory[qHistory.length - 1];
+    const newHistory = qHistory.filter(q => q.id !== lastQuestion.id);
+    
     setQHistory(newHistory);
-    const curQuestion = questions.find(q => q.id === previousQuestion.id);
+    const curQuestion = questions.find(q => q.id === lastQuestion.id);
     if (curQuestion) {
       setActualContent(curQuestion);
+      setquestionChoice({} as HistoryEntry);
     }
 
   }
@@ -140,7 +155,8 @@ function App() {
       <CardContainer {...
         {
           ...actualContent, 
-          setHistory: handleAddToHIstory
+          setHistory: handleRecordChice,
+          selectedAnswer: questionChoice.answer || ''
         }}/>
       <CardAction 
         isDisabled={!nextQuestionIsAvailable} 

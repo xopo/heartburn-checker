@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { Answer, HistoryEntry, NextAction, NextOutcome } from "../App";
 
 type CardContainerProps = {
@@ -9,13 +9,11 @@ type CardContainerProps = {
     next?: Array<NextAction | NextOutcome>;
     show_booking_button?: boolean;
     setHistory:  (obj: HistoryEntry) => void;
+    selectedAnswer: string;
 };
 
-export default function CardContainer({id, question_text, text, show_booking_button, answers, setHistory}: CardContainerProps) {
-    console.log(id, question_text, answers);
-    const [selected, setSelected] = useState('');
-    function handleSelected(setid:string) {
-        setSelected(setid);
+function CardContainer({id, question_text, text, show_booking_button, answers, setHistory, selectedAnswer}: CardContainerProps) {
+    function handleSelected(setid :string) {
         const answerdObject = {
             id,
             answer: setid,
@@ -24,16 +22,16 @@ export default function CardContainer({id, question_text, text, show_booking_but
         setHistory(answerdObject as HistoryEntry);
     }
     const title = question_text || 'Thank you for answering the question';
-    console.log({id, question_text, answers})
+
     return (
         <div className="card-content">
             <div className="question">{ title }</div>
             <div className='choice'>
-                {answers && answers.map(({id, label, score}: Answer) => (
+                {answers && answers.map(({id: answerId, label}: Answer) => (
                     <button 
-                        key={id}
-                        onClick={() => handleSelected(id)}
-                        className={selected && selected === id ? 'selected' : ''}
+                        key={answerId}
+                        onClick={() => handleSelected(answerId)}
+                        className={selectedAnswer && selectedAnswer === answerId ? 'selected' : ''}
                     >
                         {label}
                     </button>
@@ -46,3 +44,5 @@ export default function CardContainer({id, question_text, text, show_booking_but
         </div>
     );
 }
+
+export default memo(CardContainer);
