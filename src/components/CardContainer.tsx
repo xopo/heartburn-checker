@@ -1,5 +1,5 @@
-import { useState, memo } from 'react';
-import { Answer, HistoryEntry, NextAction, NextOutcome } from "../App";
+import { memo } from 'react';
+import { Answer, HistoryEntry, NextAction, NextOutcome } from "../types";
 
 type CardContainerProps = {
     answers?: Array<Answer>;

@@ -1,12 +1,14 @@
-import { TrackerEntry } from "../App";
+import { TrackerEntry } from "../types";
 
 type HeaderProps = {
     title: string;
     tracker: Array<TrackerEntry>;
     handleBack: () => void;
+    actionIsDisabled?: boolean;
 }
 
-export default function CardHeader({title, tracker, handleBack}:HeaderProps) {
+export default function CardHeader({title, tracker, handleBack, actionIsDisabled}:HeaderProps) {
+    const actionClass = `header-action${actionIsDisabled ? ' hidden' : ''}`
     return(
         <div 
             className="card-header"
@@ -14,7 +16,7 @@ export default function CardHeader({title, tracker, handleBack}:HeaderProps) {
         >
             <div className="row">
                 <div 
-                    className='header-action'
+                    className={actionClass}
                     data-testid='cch-action'
                     onClick={handleBack}
                 >.</div>

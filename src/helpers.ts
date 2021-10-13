@@ -1,4 +1,4 @@
-import { NextOutcome, Outcome, Question } from "./App";
+import { NextOutcome, Outcome, Question } from "./types";
 
 export function getOutcome(score: number, outcomeOptions: Question | Outcome, outcomes: Array<Outcome>) {
     let outcomeObj = {} as  NextOutcome;

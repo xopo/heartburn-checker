@@ -1,5 +1,5 @@
 import {Matcher, MatcherOptions, render} from '@testing-library/react';
-import { TrackerEntry } from '../App';
+import { TrackerEntry } from '../types';
 
 import CardHeader from "../components/CardHeader";
 

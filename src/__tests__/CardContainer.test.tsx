@@ -1,5 +1,5 @@
 import { fireEvent, Matcher, MatcherOptions, render } from '@testing-library/react';
-import { Answer } from '../App';
+import { Answer } from '../types';
 import CardContainer from '../components/CardContainer';
 
 const testProps = {

@@ -1,4 +1,4 @@
-import { Outcome, Question } from '../App';
+import { Outcome, Question } from '../types';
 import { getOutcome } from '../helpers';
 import mock from '../mock';
 
