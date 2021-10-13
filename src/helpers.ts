@@ -11,19 +11,3 @@ export function getOutcome(score: number, outcomeOptions: Question | Outcome, ou
     }
     return outcomes.find(out => out.id === outcomeObj.outcome);
 }
-
-export function getInitialEntry(entries: Array<Question>) {
-    const keysIsCalled = {} as {[key: string]: number};
-    if (entries.length) {
-        for(const entry of entries) {
-            // it is already in keyIsCalled or  is the last question;
-            keysIsCalled[entry.id] = entry.id in keysIsCalled || 'outcome' in entry.next[0]  ? 1 : 0; 
-            for(const nextEntry of entry.next) {
-                if ('next_question' in nextEntry) {
-                    keysIsCalled[nextEntry.next_question] = 1;
-                }
-            }   
-        }
-    }
-    return Object.keys(keysIsCalled).find(key => keysIsCalled[key] === 0) || '';
-}

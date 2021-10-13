@@ -16,7 +16,7 @@ describe('<CardHeader />', () => {
     let getByTestId: (text: Matcher, options?: MatcherOptions | undefined, waitForElementOptions?: unknown) => HTMLElement;
     beforeEach(() => {
         ({getByTestId} = render(<CardHeader {...testProps}/>));
-    })
+    });
 
     it('correctly renders the component', () => {
         const header = getByTestId('component-card-header');

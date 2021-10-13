@@ -4,7 +4,7 @@ import CardContainer from './components/CardContainer';
 import CardHeader from './components/CardHeader';
 import mock from './mock';
 import './App.scss';
-import { getInitialEntry, getOutcome } from './helpers';
+import { getOutcome } from './helpers';
 
 const appTitle = "Heartburn Checker";
 
@@ -49,7 +49,6 @@ export type Outcome = {
 }
 
 function App() {
-  const initialQuestion = getInitialEntry(mock.questions as Array<Question>);
   const [questions, setQuestions] = useState([] as Array<Question>);
   const [actualContent, setActualContent] = useState({} as Question | Outcome);
   const [initialQuestionId, setInitialQuestionId] = useState('');
@@ -57,6 +56,8 @@ function App() {
   const [questionChoice, setquestionChoice] = useState({} as HistoryEntry);
   const [qHistory, setQHistory] = useState([] as Array<HistoryEntry>);
   const [tracker, setTracker] = useState([] as Array<TrackerEntry>);
+
+  const initialQueston = mock.questions[0];
 
   function getTrackerId(id:number): string {
     return `${id} - future`;
@@ -79,9 +80,10 @@ function App() {
   
 
   const initialSetup = useCallback(() => {
+    
     setQHistory([]);
-    setInitialQuestionId(initialQuestion);
-    setActualContentId(initialQuestion);
+    setInitialQuestionId(initialQueston.id);
+    setActualContentId(initialQueston.id);
     setTracker(memoisedCreateTracker());
   }, []);
 
