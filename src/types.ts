@@ -5,35 +5,40 @@ export type Answer = {
 }
 
 export type NextOutcome = {
-outcome: string;
-max_score?: number;
+    outcome: string;
+    max_score?: number;
 }
 
 export type NextAction = { 
-answered: string;
-next_question: string;
+    answered: string;
+    next_question: string;
 }
 
 export type Question = {
-id: string;
-question_text: string;
-answers: Array<Answer>;
-next: Array<NextAction | NextOutcome>;
+    id: string;
+    question_text: string;
+    answers: Array<Answer>;
+    next: Array<NextAction | NextOutcome>;
 }
 
 export type HistoryEntry = {
-id: string;
-answer: string;
-score: number;
+    id: string;
+    answer: string;
+    score: number;
 }
 
 export type TrackerEntry = {
-id: string;
-cls: 'history' | 'future';
+    id: string;
+    cls: 'history' | 'future';
 }
 
 export type Outcome = {
-id: string;
-text: string;
-show_booking_button: boolean;
+    id: string;
+    text: string;
+    show_booking_button: boolean;
+}
+
+export type ApiData = {
+    questions: Array<Question>;
+    outcomes: Array<Outcome>;
 }

@@ -2,9 +2,11 @@
 import CardAction from './components/CardAction';
 import CardContainer from './components/CardContainer';
 import CardHeader from './components/CardHeader';
+import mock from './mock';
 
 import './App.scss';
 import  AppCustomHook  from './appCustomHook';
+import { ApiData } from './types';
 
 const appTitle = "Heartburn Checker";
 
@@ -18,9 +20,7 @@ function App() {
     nextQuestionIsAvailable,
     questionChoice,
     tracker,
-  } = AppCustomHook();
-
-  
+  } = AppCustomHook(mock as ApiData);
 
   return (
     <div className="checker" data-testid='component-app'>

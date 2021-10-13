@@ -44,12 +44,22 @@
   },
   "jest": {
     "coverageThreshold": {
-        "global": {
-            "branches": 80,
-            "functions": 80,
-            "lines": 80,
-            "statements": 80
-        }
-    }
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    },
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "mock.ts",
+      "index.ts",
+      "reportWebVitals.ts",
+      "types.ts"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/react-hooks": "^7.0.2"
   }
 }

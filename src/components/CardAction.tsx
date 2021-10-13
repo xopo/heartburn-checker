@@ -11,7 +11,7 @@ export default function CardAction({isDisabled, clickHandle, restart}: CardActio
                 restart ? 
                     <button 
                         className='restart'
-                        data-testid='cca-next'
+                        data-testid='cca-restart'
                         onClick={clickHandle}
                     >Back to the start screen</button> :
                     

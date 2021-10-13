@@ -1,42 +1,38 @@
 import { useState, useEffect, useCallback } from 'react';
-import mock from './mock';
 import { getOutcome } from './helpers';
-import type { HistoryEntry, Outcome, Question, TrackerEntry } from './types';
+import type { HistoryEntry, Outcome, Question, TrackerEntry, ApiData } from './types';
 
 
-export default function AppCustomHook() {
+export default function AppCustomHook(data: ApiData) {
     const [questions, setQuestions] = useState([] as Array<Question>);
     const [actualContent, setActualContent] = useState({} as Question | Outcome);
     const [initialQuestionId, setInitialQuestionId] = useState('');
     const [actualContentId, setActualContentId] = useState('');
-    const [questionChoice, setquestionChoice] = useState({} as HistoryEntry);
+    const [questionChoice, setQuestionChoice] = useState({} as HistoryEntry);
     const [qHistory, setQHistory] = useState([] as Array<HistoryEntry>);
     const [tracker, setTracker] = useState([] as Array<TrackerEntry>);
 
-    const initialQueston = mock.questions[0];
+    const initialQueston = data.questions[0];
 
     function getTrackerId(id:number): string {
         return `${id} - future`;
     }
     const memoisedCreateTracker = useCallback(() => {
         function createTracker(historyList: Array<HistoryEntry>): Array<TrackerEntry> {
-        const trackerList = [{id: 'initial', cls: 'history'}] as Array<TrackerEntry>;
-        for (let i = 0; i <= mock.questions.length - 1; i ++ ) {
-            if (historyList[i]) {
-            trackerList.push({id: historyList[i].id, cls: 'history'});
-            } else {
-            trackerList.push({id: getTrackerId(i), cls: 'future'});
+            const trackerList = [{id: 'initial', cls: 'history'}] as Array<TrackerEntry>;
+            for (let i = 0; i <= data.questions.length - 1; i ++ ) {
+                if (historyList[i]) {
+                trackerList.push({id: historyList[i].id, cls: 'history'});
+                } else {
+                trackerList.push({id: getTrackerId(i), cls: 'future'});
+                }
             }
-        }
-        return trackerList;
+            return trackerList;
         }
         return createTracker(qHistory);
     }, [qHistory]);
 
-    
-
     const initialSetup = useCallback(() => {
-        
         setQHistory([]);
         setInitialQuestionId(initialQueston.id);
         setActualContentId(initialQueston.id);
@@ -44,7 +40,7 @@ export default function AppCustomHook() {
     }, []);
 
     useEffect(() => {
-        setQuestions(mock.questions as Array<Question>);
+        setQuestions(data.questions as Array<Question>);
         initialSetup();
     }, [initialSetup]);
 
@@ -59,33 +55,33 @@ export default function AppCustomHook() {
     }, [qHistory, memoisedCreateTracker]);
 
     function handleRecordChoice(newEntry: HistoryEntry) {
-        setquestionChoice(newEntry);
+        setQuestionChoice(newEntry);
     }
 
     function handleContentAction() {
         if ('show_booking_button' in actualContent) {  // should reset
-        initialSetup();
-        return;
+            initialSetup();
+            return;
         }
         const lastAnswer = questionChoice;
         const nextDirection = actualContent.next.length === 1 ? actualContent.next[0] : actualContent.next.find(n => 'answered' in n && n.answered === lastAnswer.answer);
         if (nextDirection && 'next_question' in nextDirection) {
-        setActualContentId(nextDirection.next_question);
-        setQHistory(prev => [...prev, lastAnswer]);
+            setActualContentId(nextDirection.next_question);
+            setQHistory(prev => [...prev, lastAnswer]);
         } else { 
-        // outcome screen
-        const score = qHistory.reduce((acc, q) => acc + q.score, 0);
-        let outcomeEntry = getOutcome(score, actualContent, mock.outcomes);
-        
-        if (outcomeEntry) {
-            setActualContent(outcomeEntry);
-            setTracker(tracker.map(entry => {
-            if (entry.cls === 'future') {
-                return {...entry, cls: 'history'};
-            } 
-            return entry;
-            }));
-        }
+            // outcome screen
+            const score = qHistory.reduce((acc, q) => acc + q.score, 0);
+            let outcomeEntry = getOutcome(score, actualContent, data.outcomes);
+            
+            if (outcomeEntry) {
+                setActualContent(outcomeEntry);
+                setTracker(tracker.map(entry => {
+                    if (entry.cls === 'future') {
+                        return {...entry, cls: 'history'};
+                    } 
+                    return entry;
+                }));
+            }
         }
     }
     const nextQuestionIsAvailable = questionChoice.id === actualContent.id;
@@ -101,7 +97,7 @@ export default function AppCustomHook() {
         const curQuestion = questions.find(q => q.id === lastQuestion.id);
         if (curQuestion) {
         setActualContent(curQuestion);
-        setquestionChoice({} as HistoryEntry);
+        setQuestionChoice({} as HistoryEntry);
         }
 
     }
