@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.0c42e62c.chunk.css",
-    "main.js": "/static/js/main.962affd2.chunk.js",
-    "main.js.map": "/static/js/main.962affd2.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.cdb23495.js",
-    "runtime-main.js.map": "/static/js/runtime-main.cdb23495.js.map",
-    "static/js/2.a136961a.chunk.js": "/static/js/2.a136961a.chunk.js",
-    "static/js/2.a136961a.chunk.js.map": "/static/js/2.a136961a.chunk.js.map",
-    "static/js/3.3efea8e2.chunk.js": "/static/js/3.3efea8e2.chunk.js",
-    "static/js/3.3efea8e2.chunk.js.map": "/static/js/3.3efea8e2.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.0c42e62c.chunk.css.map": "/static/css/main.0c42e62c.chunk.css.map",
-    "static/js/2.a136961a.chunk.js.LICENSE.txt": "/static/js/2.a136961a.chunk.js.LICENSE.txt",
-    "static/media/App.scss": "/static/media/ic-checkmark.e0da07c5.svg"
+    "main.css": "//xopo.github.io/heartburn-checker/static/css/main.1c1275fa.chunk.css",
+    "main.js": "//xopo.github.io/heartburn-checker/static/js/main.962affd2.chunk.js",
+    "main.js.map": "//xopo.github.io/heartburn-checker/static/js/main.962affd2.chunk.js.map",
+    "runtime-main.js": "//xopo.github.io/heartburn-checker/static/js/runtime-main.e0bbec42.js",
+    "runtime-main.js.map": "//xopo.github.io/heartburn-checker/static/js/runtime-main.e0bbec42.js.map",
+    "static/js/2.a136961a.chunk.js": "//xopo.github.io/heartburn-checker/static/js/2.a136961a.chunk.js",
+    "static/js/2.a136961a.chunk.js.map": "//xopo.github.io/heartburn-checker/static/js/2.a136961a.chunk.js.map",
+    "static/js/3.3efea8e2.chunk.js": "//xopo.github.io/heartburn-checker/static/js/3.3efea8e2.chunk.js",
+    "static/js/3.3efea8e2.chunk.js.map": "//xopo.github.io/heartburn-checker/static/js/3.3efea8e2.chunk.js.map",
+    "index.html": "//xopo.github.io/heartburn-checker/index.html",
+    "static/css/main.1c1275fa.chunk.css.map": "//xopo.github.io/heartburn-checker/static/css/main.1c1275fa.chunk.css.map",
+    "static/js/2.a136961a.chunk.js.LICENSE.txt": "//xopo.github.io/heartburn-checker/static/js/2.a136961a.chunk.js.LICENSE.txt",
+    "static/media/App.scss": "//xopo.github.io/heartburn-checker/static/media/ic-checkmark.e0da07c5.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.cdb23495.js",
+    "static/js/runtime-main.e0bbec42.js",
     "static/js/2.a136961a.chunk.js",
-    "static/css/main.0c42e62c.chunk.css",
+    "static/css/main.1c1275fa.chunk.css",
     "static/js/main.962affd2.chunk.js"
   ]
 }
