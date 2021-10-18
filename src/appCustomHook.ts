@@ -88,20 +88,20 @@ export default function AppCustomHook(data: ApiData) {
     
     function handleBack() {
         if (qHistory.length < 1) {
-        return false; // startpoint
+            return false; // startpoint
         }
         const lastQuestion = qHistory[qHistory.length - 1];
         const newHistory = qHistory.filter(q => q.id !== lastQuestion.id);
-        
-        setQHistory(newHistory);
         const curQuestion = questions.find(q => q.id === lastQuestion.id);
+        
         if (curQuestion) {
-        setActualContent(curQuestion);
-        setQuestionChoice({} as HistoryEntry);
+            setQHistory(newHistory);
+            setActualContentId(curQuestion.id);
+            setActualContent(curQuestion);
+            setQuestionChoice({} as HistoryEntry);
         }
-
     }
-
+    
     const isFirstQuestion = actualContent.id === initialQuestionId;
 
     return {
