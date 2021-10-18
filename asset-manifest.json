@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "//xopo.github.io/heartburn-checker/static/css/main.1c1275fa.chunk.css",
-    "main.js": "//xopo.github.io/heartburn-checker/static/js/main.962affd2.chunk.js",
-    "main.js.map": "//xopo.github.io/heartburn-checker/static/js/main.962affd2.chunk.js.map",
+    "main.js": "//xopo.github.io/heartburn-checker/static/js/main.dfa1dfe0.chunk.js",
+    "main.js.map": "//xopo.github.io/heartburn-checker/static/js/main.dfa1dfe0.chunk.js.map",
     "runtime-main.js": "//xopo.github.io/heartburn-checker/static/js/runtime-main.e0bbec42.js",
     "runtime-main.js.map": "//xopo.github.io/heartburn-checker/static/js/runtime-main.e0bbec42.js.map",
     "static/js/2.a136961a.chunk.js": "//xopo.github.io/heartburn-checker/static/js/2.a136961a.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.e0bbec42.js",
     "static/js/2.a136961a.chunk.js",
     "static/css/main.1c1275fa.chunk.css",
-    "static/js/main.962affd2.chunk.js"
+    "static/js/main.dfa1dfe0.chunk.js"
   ]
 }
