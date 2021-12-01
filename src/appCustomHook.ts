@@ -3,7 +3,7 @@ import { getOutcome } from './helpers';
 import type { HistoryEntry, Outcome, Question, TrackerEntry, ApiData } from './types';
 
 
-export default function AppCustomHook(data: ApiData) {
+export default function useAppCustomHook(data: ApiData) {
     const [questions, setQuestions] = useState([] as Array<Question>);
     const [actualContent, setActualContent] = useState({} as Question | Outcome);
     const [initialQuestionId, setInitialQuestionId] = useState('');
@@ -22,15 +22,15 @@ export default function AppCustomHook(data: ApiData) {
             const trackerList = [{id: 'initial', cls: 'history'}] as Array<TrackerEntry>;
             for (let i = 0; i <= data.questions.length - 1; i ++ ) {
                 if (historyList[i]) {
-                trackerList.push({id: historyList[i].id, cls: 'history'});
+                    trackerList.push({id: historyList[i].id, cls: 'history'});
                 } else {
-                trackerList.push({id: getTrackerId(i), cls: 'future'});
+                    trackerList.push({id: getTrackerId(i), cls: 'future'});
                 }
             }
             return trackerList;
         }
         return createTracker(qHistory);
-    }, [qHistory]);
+    }, [qHistory, data]);
 
     const initialSetup = useCallback(() => {
         setQHistory([]);
@@ -42,7 +42,7 @@ export default function AppCustomHook(data: ApiData) {
     useEffect(() => {
         setQuestions(data.questions as Array<Question>);
         initialSetup();
-    }, [initialSetup]);
+    }, [initialSetup, data]);
 
     useEffect(() => {
         const questionId = actualContentId || initialQuestionId;

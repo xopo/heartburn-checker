@@ -5,7 +5,7 @@ import CardHeader from './components/CardHeader';
 import mock from './mock';
 
 import './App.scss';
-import  AppCustomHook  from './appCustomHook';
+import  useAppCustomHook  from './appCustomHook';
 import { ApiData } from './types';
 
 const appTitle = "Heartburn Checker";
@@ -20,7 +20,7 @@ function App() {
     nextQuestionIsAvailable,
     questionChoice,
     tracker,
-  } = AppCustomHook(mock as ApiData);
+  } = useAppCustomHook(mock as ApiData);
 
   return (
     <div className="checker" data-testid='component-app'>
